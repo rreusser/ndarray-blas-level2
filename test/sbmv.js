@@ -10,7 +10,7 @@ var sbmv = require('../sbmv');
 
 describe('SBMV (symmetric banded matrix-vector product)', function () {
   var n = 15;
-  var k = 6;
+  var k = 3;
   var seed;
   var matGen = new RandMatGen(seed, Float64Array);
   var x = ndarray(new Float64Array(n), [n]);

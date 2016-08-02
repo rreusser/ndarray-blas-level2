@@ -14,26 +14,29 @@ describe('SBMV (symmetric banded matrix-vector product)', function () {
   var seed;
   var matGen = new RandMatGen(seed, Float64Array);
   var x = ndarray(new Float64Array(n), [n]);
-  var x0 = ndarray(new Float64Array(n), [n]);
-  var xn = ndarray(new Float64Array(n), [n]);
-  var B = ndarray(new Float64Array(n * n), [n, n]);
+  var y1 = ndarray(new Float64Array(n), [n]);
+  var y2 = ndarray(new Float64Array(n), [n]);
+  var A = ndarray(new Float64Array(n * n), [n, n]);
 
   it('upper-triangular sbmv', function () {
     for (var t = 0; t < constants.NUM_TESTS; ++t) {
       seed = matGen.setRandomSeed(36);
-      matGen.makeSymmBandedMatrix(n, k, B);
-      sbmv(B, k, x0, x);
-      gemv(1, B, x0, 0, xn);
-      assertCloseTo(x, xn, constants.TEST_TOLERANCE, 'Failure seed value: "' + seed + '".');
+      matGen.makeSymmBandedMatrix(n, k, A);
+
+      sbmv(A, k, x, y1, false);
+      gemv(1, A, x, 0, y2);
+      assertCloseTo(y1, y2, constants.TEST_TOLERANCE, 'Failure seed value: "' + seed + '".');
     }
   });
+
   it('lower-triangular sbmv', function () {
     for (var t = 0; t < constants.NUM_TESTS; ++t) {
       seed = matGen.setRandomSeed(36);
-      matGen.makeSymmBandedMatrix(n, k, B);
-      sbmv(B, k, x0, x, false);
-      gemv(1, B, x0, 0, xn);
-      assertCloseTo(x, xn, constants.TEST_TOLERANCE, 'Failure seed value: "' + seed + '".');
+      matGen.makeSymmBandedMatrix(n, k, A);
+
+      sbmv(A, k, x, y1);
+      gemv(1, A, x, 0, y2);
+      assertCloseTo(y1, y2, constants.TEST_TOLERANCE, 'Failure seed value: "' + seed + '".');
     }
   });
 });

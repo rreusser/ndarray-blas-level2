@@ -9,6 +9,15 @@ function spmv (A, n, x, y, fromLower, alpha, beta) {
   var alpha0 = alpha === undefined ? 1 : alpha;
   var beta0 = beta === undefined ? 0 : beta;
 
+  if (A.shape[0] !== n * (n + 1) / 2) {
+    throw new Error('Packed matrix does not match arguments.');
+  }
+  if (n !== x.shape[0]) {
+    throw new Error('x dimension must agree with A.');
+  }
+  if (n !== y.shape[0]) {
+    throw new Error('y dimension must agree with A.');
+  }
   var i = 0;
   var j = 0;
   if (beta0 === 0) {

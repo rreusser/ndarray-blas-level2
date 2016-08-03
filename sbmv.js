@@ -7,6 +7,22 @@ module.exports = sbmv;
 function sbmv (A, k, x, y, fromLower, alpha, beta) {
   var n = A.shape[0];
 
+  if (k > n - 1) {
+    // number of superdiagonals cannot exceed matrix dimensions.
+    return false;
+  }
+  if (n !== A.shape[1]) {
+    // matrix must be symmetric
+    return false;
+  }
+  if (n !== x.shape[0]) {
+    // x dimension must agree with A
+    return false;
+  }
+  if (n !== y.shape[0]) {
+    // y dimension must agree with A
+    return false;
+  }
   var lower = fromLower || true;
   var alpha0 = alpha === undefined ? 1 : alpha;
   var beta0 = beta === undefined ? 0 : beta;

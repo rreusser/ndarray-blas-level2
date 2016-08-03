@@ -25,5 +25,8 @@ Calculates `y <- alpha*A*x + beta*y` for banded matrices. `kl` is the number of 
 ### `symv(A, x, y, fromLower, alpha, beta)`
 Calculates `y <- alpha*A*x + beta*y` for symmetric matrices. If `fromLower = true`, the function uses the lower triangular part of the matrix; for `false` it uses the upper triangular part. `alpha` defaults to 1.0 and `beta` defaults to 0.0 if not specified.
 
+### `spmv (A, n, x, y, fromLower, alpha, beta)`
+Calculates `y <- alpha*A*x + beta*y` for symmetric packed matrices. `n` is the row and column dimension of the matrix. If `fromLower = true`, the function uses the lower triangular part of the matrix; for `false` it uses the upper triangular part. `alpha` defaults to 1.0 and `beta` defaults to 0.0 if not specified.
+
 ## Credits
 &copy; 2016 Scijs Authors. MIT License.

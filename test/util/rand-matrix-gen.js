@@ -141,5 +141,32 @@ module.exports = function (seed, arrayType) {
     return A;
   };
 
+  exports.makeSymmetricMatrixFromPacked = function (n, P, S, lower) {
+    var B = S || ndarray(new NUMBER_ARRAY(n * n), [n, n]);
+    var i = 0;
+    var j = 0;
+    var val = 0.0;
+    var lowerTri = lower || true;
+
+    // mirror everything but the diagonal
+    if (lowerTri) {
+      for (i = 0; i < n; ++i) {
+        for (j = 0; j <= i; ++j) {
+          val = P.get(i + (2 * n - j - 1) * j / 2);
+          B.set(i, j, val);
+          B.set(j, i, val);
+        }
+      }
+    } else {
+      for (i = 0; i < n; ++i) {
+        for (j = i; j < n; ++j) {
+          val = P.get(i + j * (j + 1) / 2);
+          B.set(i, j, val);
+          B.set(j, i, val);
+        }
+      }
+    }
+  };
+
   return exports;
 };

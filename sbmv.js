@@ -8,20 +8,16 @@ function sbmv (A, k, x, y, fromLower, alpha, beta) {
   var n = A.shape[0];
 
   if (k > n - 1) {
-    // number of superdiagonals cannot exceed matrix dimensions.
-    return false;
+    throw new Error('Number of superdiagonals cannot exceed matrix dimensions.');
   }
   if (n !== A.shape[1]) {
-    // matrix must be symmetric
-    return false;
+    throw new Error('Matrix must be symmetric.');
   }
   if (n !== x.shape[0]) {
-    // x dimension must agree with A
-    return false;
+    throw new Error('x dimension must agree with A.');
   }
   if (n !== y.shape[0]) {
-    // y dimension must agree with A
-    return false;
+    throw new Error('y dimension must agree with A.');
   }
   var lower = fromLower || true;
   var alpha0 = alpha === undefined ? 1 : alpha;
